@@ -172,7 +172,7 @@ python3 scripts/package_all_skills.py
 - **版本**: 1.0.0
 - **创建日期**: 2026-03-12
 - **作者**: RETHINKAIZ
-- **许可证**: RTHINKORDER260312
+- **许可证**: RTHINKORDER260003
 
 ---
 
