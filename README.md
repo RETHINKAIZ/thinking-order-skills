@@ -1,6 +1,6 @@
 # thinking-order-skills
 
-> Thinking Order - 让思考更有秩序，让表达更有力量
+> Thinking Order - 让思考更有结构，让表达更有力量
 
 一套完整的写作与思考辅助技能包，包含 14 个专业技能，涵盖从选题、构思、写作到优化的全流程。适用于 Claude Code 平台。
 
@@ -171,8 +171,8 @@ python3 scripts/package_all_skills.py
 
 - **版本**: 1.0.0
 - **创建日期**: 2026-03-12
-- **作者**: Thinking Order Team
-- **许可证**: MIT
+- **作者**: RETHINKAIZ
+- **许可证**: RTHINKORDER260312
 
 ---
 
