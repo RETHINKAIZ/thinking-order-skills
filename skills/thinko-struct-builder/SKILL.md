@@ -1045,7 +1045,7 @@ PREP 框架适合通用汇报和方案陈述，特点是结论先行，适合时
 
 - **详细框架文档**：`references/frameworks.md` - 所有框架的完整结构、使用场景和示例
 - **可套用模板**：`references/templates.md` - 各类框架的完整模板
-- **案例参考**：`references/Case Reference.md` - 书中全部实际案例
+- **案例参考**：`references/CaseReference.md` - 书中全部实际案例
 
 ---
 
