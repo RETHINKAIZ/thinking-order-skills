@@ -2,7 +2,7 @@
 
 > Thinking Order - 让思考更有结构，让表达更有力量
 
-一套完整的写作与思考辅助技能包，包含 14 个专业技能，涵盖从选题、构思、写作到优化的全流程。适用于 Claude Code 平台。
+一套完整的写作与思考辅助技能包，包含 4 个合并能力簇，涵盖从选题、构思、写作、阅读到优化的全流程。适用于支持 Agent Skills 的多种 agent runtime。
 
 ---
 
@@ -12,13 +12,16 @@
 
 1. 从 GitHub 下载 `thinking-order-skills.zip`（见右侧 Releases 或 dist 目录）
 2. 解压到任意位置
-3. 运行安装脚本
+3. 运行安装脚本；如需安装到指定 runtime，请先设置 `SKILLS_DIR`
 
 **macOS / Linux:**
 ```bash
 cd thinking-order-skills
 chmod +x scripts/install.sh
 ./scripts/install.sh
+
+# 指定安装目录示例
+SKILLS_DIR="$HOME/.codex/skills" ./scripts/install.sh
 ```
 
 **Windows:**
@@ -33,7 +36,7 @@ scripts\install.bat
 
 ```bash
 # 克隆仓库
-git clone https://github.com/YOUR_USERNAME/thinking-order-skills.git
+git clone https://github.com/RETHINKAIZ/thinking-order-skills.git
 cd thinking-order-skills
 
 # 运行安装脚本
@@ -41,13 +44,20 @@ cd thinking-order-skills
 scripts\install.bat   # Windows
 ```
 
-安装完成后，重启 Claude Code 即可使用！
+安装完成后，重启你的 agent 或刷新 skills 索引即可使用。
 
 ### 方法三：手动安装
 
+把 `skills/thinko-*` 复制到你的 agent skills 目录即可。常见目录示例：
+
+| Runtime | 示例目录 |
+|---|---|
+| Codex | `~/.codex/skills/` |
+| Claude Code | `~/.claude/skills/` |
+| Cursor / 其他兼容 runtime | 以对应 runtime 文档为准 |
+
 ```bash
-# 将所有技能复制到 Claude Code skills 目录
-cp -r skills/thinko-* ~/.claude/skills/
+cp -r skills/thinko-* "$SKILLS_DIR/"
 ```
 
 ---
@@ -56,38 +66,37 @@ cp -r skills/thinko-* ~/.claude/skills/
 
 | # | 技能名称 | 中文名 | 核心功能 |
 |---|----------|--------|----------|
-| 1 | **thinko-struct-builder** | 结构大师 | 结构化表达框架，自动识别场景推荐模板 |
-| 2 | **thinko-template-writer** | 模板写手 | 提供各类写作模板，快速填充生成标准化文档 |
-| 3 | **thinko-reading-analyzer** | 阅读侦探 | 深度分析文章内容，提取关键信息和逻辑结构 |
-| 4 | **thinko-insight-extractor** | 洞察猎人 | 从大量信息中提取核心洞察和关键结论 |
-| 5 | **thinko-article-refiner** | 文章造型师 | 优化文章结构、表达和逻辑，提升文章质量 |
-| 6 | **thinko-report-generator** | 汇报嘴替 | 基于已有内容自动生成周报、月报、项目汇报 |
-| 7 | **thinko-idea-spark** | 鬼点子精 | 创意点子生成器，支持头脑风暴和思路拓展 |
-| 8 | **thinko-outline-planner** | 提纲管家 | 生成文章结构和大纲，快速搭建写作框架 |
-| 9 | **thinko-argument-builder** | 论点建筑师 | 搭建议论文/评论/分析文章的观点结构 |
-| 10 | **thinko-example-finder** | 例子猎人 | 根据需求补充案例和素材，支撑观点论证 |
-| 11 | **thinko-rewrite-artist** | 改写高手 | 改写句子、降重、换表达，支持多种风格 |
-| 12 | **thinko-summary-maker** | 总结课代表 | 文章内容总结，支持多种格式和长度 |
-| 13 | **thinko-style-polisher** | 文风造型师 | 文风调整、润色文章，支持多种写作风格 |
-| 14 | **thinko-topic-explorer** | 选题探险家 | 拓展选题和创意方向，多角度分析选题价值 |
+| 1 | **thinko-content-planner** | 内容策划中枢 | 选题、创意、提纲、论点、案例素材 |
+| 2 | **thinko-draft-writer** | 成稿写作中枢 | 结构化表达、模板写作、邮件、方案、汇报 |
+| 3 | **thinko-reading-synthesizer** | 阅读综合中枢 | 阅读分析、总结摘要、洞察提取、会议纪要 |
+| 4 | **thinko-editor-polisher** | 编辑润色中枢 | 文章优化、改写降重、语气和文风润色 |
+
+### 旧技能映射
+
+| 原技能 | 合并到 |
+|---|---|
+| thinko-topic-explorer / thinko-idea-spark / thinko-outline-planner / thinko-argument-builder / thinko-example-finder | thinko-content-planner |
+| thinko-struct-builder / thinko-template-writer / thinko-report-generator | thinko-draft-writer |
+| thinko-reading-analyzer / thinko-insight-extractor / thinko-summary-maker | thinko-reading-synthesizer |
+| thinko-article-refiner / thinko-rewrite-artist / thinko-style-polisher | thinko-editor-polisher |
 
 ---
 
 ## 🚀 使用方式
 
-安装后，在 Claude Code 中直接使用技能名称即可触发。
+安装后，在你的 skills-aware agent 中直接使用技能名称或中文名即可触发。
 
 ### 中文触发示例：
-- "帮我用**结构大师**整理一下这个汇报"
-- "用**总结课代表**帮我总结这篇文章"
-- "我需要**选题探险家**帮我想想写作方向"
-- "用**提纲管家**帮我列个文章大纲"
-- "让**汇报嘴替**帮我写个周报"
+- "用**内容策划中枢**帮我把 AI Agent 企业协作这个方向拆成选题和大纲"
+- "用**成稿写作中枢**帮我写一份项目延期说明邮件"
+- "用**阅读综合中枢**总结这篇文章并提炼可行动洞察"
+- "用**编辑润色中枢**把这段话改得更专业但不要生硬"
 
 ### 英文触发示例：
-- "Use **thinko-struct-builder** to organize my report"
-- "Use **thinko-summary-maker** to summarize this article"
-- "Use **thinko-topic-explorer** to brainstorm ideas"
+- "Use **thinko-content-planner** to brainstorm topics and build an outline"
+- "Use **thinko-draft-writer** to write a weekly report"
+- "Use **thinko-reading-synthesizer** to summarize this article"
+- "Use **thinko-editor-polisher** to rewrite this paragraph"
 
 ---
 
@@ -95,23 +104,19 @@ cp -r skills/thinko-* ~/.claude/skills/
 
 ### 📝 写作全流程
 ```
-选题 → thinko-topic-explorer（选题探险家）
-构思 → thinko-idea-spark（鬼点子精）+ thinko-outline-planner（提纲管家）
-写作 → thinko-template-writer（模板写手）+ thinko-struct-builder（结构大师）
-论证 → thinko-argument-builder（论点建筑师）+ thinko-example-finder（例子猎人）
-优化 → thinko-article-refiner（文章造型师）+ thinko-style-polisher（文风造型师）
-改写 → thinko-rewrite-artist（改写高手）
-总结 → thinko-summary-maker（总结课代表）
+策划 → thinko-content-planner（内容策划中枢）
+成稿 → thinko-draft-writer（成稿写作中枢）
+阅读/总结 → thinko-reading-synthesizer（阅读综合中枢）
+优化/改写 → thinko-editor-polisher（编辑润色中枢）
 ```
 
 ### 📊 职场汇报场景
-- **周报/月报**: thinko-report-generator（汇报嘴替）
-- **项目总结**: thinko-insight-extractor（洞察猎人）+ thinko-report-generator
-- **PPT 大纲**: thinko-outline-planner（提纲管家）+ thinko-struct-builder
+- **周报/月报/项目总结**: thinko-draft-writer（成稿写作中枢）
+- **复盘洞察**: thinko-reading-synthesizer（阅读综合中枢）+ thinko-draft-writer
+- **PPT 大纲**: thinko-content-planner（内容策划中枢）
 
 ### 📖 阅读学习场景
-- **文章分析**: thinko-reading-analyzer（阅读侦探）
-- **笔记整理**: thinko-insight-extractor（洞察猎人）+ thinko-summary-maker
+- **文章分析/笔记整理**: thinko-reading-synthesizer（阅读综合中枢）
 
 ---
 
@@ -126,21 +131,11 @@ thinking-order-skills/
 │   ├── install.bat           # Windows 安装脚本
 │   ├── package.sh            # 重新打包脚本
 │   └── package_all_skills.py # .skill 格式打包脚本
-├── skills/                   # 所有技能源文件（14 个）
-│   ├── thinko-struct-builder/
-│   ├── thinko-template-writer/
-│   ├── thinko-reading-analyzer/
-│   ├── thinko-insight-extractor/
-│   ├── thinko-article-refiner/
-│   ├── thinko-report-generator/
-│   ├── thinko-idea-spark/
-│   ├── thinko-outline-planner/
-│   ├── thinko-argument-builder/
-│   ├── thinko-example-finder/
-│   ├── thinko-rewrite-artist/
-│   ├── thinko-summary-maker/
-│   ├── thinko-style-polisher/
-│   └── thinko-topic-explorer/
+├── skills/                   # 所有技能源文件（4 个合并能力簇）
+│   ├── thinko-content-planner/
+│   ├── thinko-draft-writer/
+│   ├── thinko-reading-synthesizer/
+│   └── thinko-editor-polisher/
 ├── dist/
 │   ├── thinking-order-skills.zip   # 分发包（推荐下载）
 │   └── plugins/                    # .skill 格式文件
@@ -169,8 +164,9 @@ python3 scripts/package_all_skills.py
 
 ## 📝 版本信息
 
-- **版本**: 1.0.0
+- **版本**: 1.1.0
 - **创建日期**: 2026-03-12
+- **更新日期**: 2026-06-15
 - **作者**: RETHINKAIZ
 - **许可证**: RTHINKORDER260003
 
