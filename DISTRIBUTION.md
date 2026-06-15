@@ -3,7 +3,7 @@
 > 如何安装和分发 thinking-order-skills 系列技能
 >
 > 项目名称：thinking-order-skills
-> GitHub: https://github.com/RETHINKAIZ/thinking-order-skills
+> GitHub: https://github.com/YOUR_USERNAME/thinking-order-skills
 
 ---
 
@@ -17,11 +17,9 @@ thinking-order-skills/
 │   ├── install.bat            # Windows 一键安装脚本
 │   ├── package.sh             # 重新打包脚本
 │   └── package_all_skills.py  # .skill 格式打包脚本
-├── skills/                    # 所有技能源文件（4 个合并能力簇）
-│   ├── thinko-content-planner/
-│   ├── thinko-draft-writer/
-│   ├── thinko-reading-synthesizer/
-│   ├── thinko-editor-polisher/
+├── skills/                    # 所有技能源文件（14 个）
+│   ├── thinko-struct-builder/
+│   ├── thinko-template-writer/
 │   └── ...
 └── dist/
     ├── thinking-order-skills.zip   # 分发包（约 50KB）
@@ -37,13 +35,13 @@ thinking-order-skills/
 1. 下载 `thinking-order-skills.zip`
 2. 解压到任意位置
 3. 双击运行 `scripts/install.sh` (macOS/Linux) 或 `scripts/install.bat` (Windows)
-4. 重启你的 agent 或刷新 skills 索引
+4. 重启 Claude Code
 
 ### 方法二：手动安装
 
 ```bash
-# 将所有技能复制到你的 Agent Skills 目录
-cp -r skills/thinko-* "$SKILLS_DIR/"
+# 将所有技能复制到 Claude Code skills 目录
+cp -r skills/thinko-* ~/.claude/skills/
 ```
 
 ### 方法三：使用 .skill 文件（高级）
@@ -55,7 +53,7 @@ cd thinking-order-skills
 python3 scripts/package_all_skills.py
 ```
 
-生成的 `.skill` 文件位于 `dist/plugins/` 目录，复制到你的 Agent Skills 目录即可。
+生成的 `.skill` 文件位于 `dist/plugins/` 目录，复制到 `~/.claude/skills/` 即可。
 
 ---
 
@@ -63,10 +61,20 @@ python3 scripts/package_all_skills.py
 
 | # | 技能名 | 中文名 | 功能 |
 |---|--------|--------|------|
-| 1 | thinko-content-planner | 内容策划中枢 | 选题、创意、提纲、论点、案例素材 |
-| 2 | thinko-draft-writer | 成稿写作中枢 | 结构化表达、模板写作、邮件、方案、汇报 |
-| 3 | thinko-reading-synthesizer | 阅读综合中枢 | 阅读分析、总结摘要、洞察提取、会议纪要 |
-| 4 | thinko-editor-polisher | 编辑润色中枢 | 文章优化、改写降重、语气和文风润色 |
+| 1 | thinko-struct-builder | 结构大师 | 结构化表达框架 |
+| 2 | thinko-template-writer | 模板写手 | 模板化写作 |
+| 3 | thinko-reading-analyzer | 阅读侦探 | 阅读分析 |
+| 4 | thinko-insight-extractor | 洞察猎人 | 洞察提取总结 |
+| 5 | thinko-article-refiner | 文章造型师 | 文章优化 |
+| 6 | thinko-report-generator | 汇报嘴替 | 汇报内容生成 |
+| 7 | thinko-idea-spark | 鬼点子精 | 创意点子生成 |
+| 8 | thinko-outline-planner | 提纲管家 | 文章结构大纲 |
+| 9 | thinko-argument-builder | 论点建筑师 | 论证观点结构 |
+| 10 | thinko-example-finder | 例子猎人 | 案例素材补充 |
+| 11 | thinko-rewrite-artist | 改写高手 | 改写降重换表达 |
+| 12 | thinko-summary-maker | 总结课代表 | 文章内容总结 |
+| 13 | thinko-style-polisher | 文风造型师 | 文风调整润色 |
+| 14 | thinko-topic-explorer | 选题探险家 | 选题创意拓展 |
 
 ---
 
@@ -89,11 +97,6 @@ cd thinking-order-skills
 
 ## 📝 版本历史
 
-### v1.1.0 (2026-06-15)
-- 将 14 个细分技能合并为 4 个能力簇
-- 默认从逐步问答改为一次性产出，降低 token 消耗
-- 保留旧技能名称作为新技能触发词，便于迁移
-
 ### v1.0.0 (2026-03-12)
 - 初始版本
 - 包含 14 个写作与思考辅助技能
@@ -104,13 +107,13 @@ cd thinking-order-skills
 ## ❓ 常见问题
 
 ### Q: 安装后看不到技能？
-A: 确保技能已复制到你的 Agent Skills 目录，并重启 agent 或刷新 skills 索引。技能名称使用小写 `thinko-` 前缀（如 `thinko-struct-builder`）。
+A: 确保技能已复制到 `~/.claude/skills/` 目录，重启 Claude Code。技能名称使用小写 `thinko-` 前缀（如 `thinko-struct-builder`）。
 
 ### Q: 如何卸载？
-A: 删除目标 skills 目录中的 `thinko-*` 目录即可。
+A: 删除 `~/.claude/skills/thinko-*` 目录即可。
 
 ### Q: 可以只安装部分技能吗？
-A: 可以，手动复制需要的技能文件夹到你的 Agent Skills 目录。
+A: 可以，手动复制需要的技能文件夹到 `~/.claude/skills/`。
 
 ---
 

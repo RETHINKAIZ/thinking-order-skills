@@ -32,7 +32,6 @@ cd "$SKILLS_DIR"
 
 # 创建 zip 文件
 ZIP_FILE="$OUTPUT_DIR/thinking-order-skills.zip"
-rm -f "$ZIP_FILE"
 zip -r "$ZIP_FILE" thinko-*/
 
 echo ""
