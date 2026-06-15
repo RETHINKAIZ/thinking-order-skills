@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Thinking Order 系列技能打包脚本
-# 将所有技能打包成一个可分发的 zip 文件
+# 将 skills/thinko-* 打包成一个可分发的 zip 文件
 
 set -e
 
@@ -11,7 +11,7 @@ SKILLS_DIR="$PACK_DIR/skills"
 OUTPUT_DIR="$PACK_DIR/dist"
 
 echo "=========================================="
-echo "  Thinking Order 系列技能打包器"
+echo "  Thinking Order 系列技能打包器 v1.1.0"
 echo "=========================================="
 echo ""
 
@@ -46,6 +46,6 @@ unzip -l "$ZIP_FILE" | head -30
 echo ""
 echo "🚀 安装方法:"
 echo "   1. 解压 thinking-order-skills.zip"
-echo "   2. 运行 scripts/install.sh (macOS/Linux)"
-echo "      或 scripts/install.bat (Windows)"
+echo "   2. 将解压出的 thinko-* 目录复制到目标 skills 目录"
+echo "      例如：cp -r thinko-* \"\$HOME/.claude/skills/\""
 echo ""

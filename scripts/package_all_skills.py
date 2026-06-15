@@ -7,14 +7,26 @@ Usage:
     python package_all_skills.py
 """
 
-import sys
-import os
 from pathlib import Path
+from zipfile import ZIP_DEFLATED, ZipFile
 
-# 添加官方打包脚本路径
-sys.path.insert(0, str(Path.home() / ".claude/plugins/cache/anthropic-agent-skills/document-skills/69c0b1a06741/skills/skill-creator/scripts"))
 
-from package_skill import package_skill
+def package_skill(skill_dir: Path, output_dir: Path) -> Path:
+    """Package one skill directory as a .skill zip archive."""
+    skill_file = skill_dir / "SKILL.md"
+    if not skill_file.exists():
+        raise FileNotFoundError(f"missing SKILL.md: {skill_dir}")
+
+    output_path = output_dir / f"{skill_dir.name}.skill"
+    if output_path.exists():
+        output_path.unlink()
+
+    with ZipFile(output_path, "w", compression=ZIP_DEFLATED) as zf:
+        for path in sorted(skill_dir.rglob("*")):
+            if path.is_file():
+                zf.write(path, path.relative_to(skill_dir))
+
+    return output_path
 
 
 def main():
@@ -28,7 +40,7 @@ def main():
     output_dir.mkdir(parents=True, exist_ok=True)
 
     print("=" * 60)
-    print("  Thinking Order 系列技能打包器 (.skill 格式)")
+    print("  Thinking Order 系列技能打包器 v1.1.0 (.skill 格式)")
     print("=" * 60)
     print()
 
@@ -51,14 +63,12 @@ def main():
     for skill_dir in skill_dirs:
         print(f"🔧 打包：{skill_dir.name}...")
 
-        # 调用官方打包脚本
-        result = package_skill(str(skill_dir), str(output_dir))
-
-        if result:
+        try:
+            result = package_skill(skill_dir, output_dir)
             print(f"   ✅ 成功：{result}")
             packaged += 1
-        else:
-            print(f"   ❌ 失败")
+        except Exception as exc:
+            print(f"   ❌ 失败：{exc}")
             failed += 1
 
     print()
@@ -77,9 +87,9 @@ def main():
         print()
 
         print("🚀 安装方法:")
-        print(f"   1. 复制 .skill 文件到 ~/.claude/skills/")
-        print(f"   2. 或者运行以下命令:")
-        print(f"      cp {output_dir}/*.skill ~/.claude/skills/")
+        print("   复制 .skill 文件到目标 skills 目录。")
+        print("   示例:")
+        print(f"      cp {output_dir}/*.skill \"$HOME/.claude/skills/\"")
         print()
 
 
